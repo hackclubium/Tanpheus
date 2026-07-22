@@ -1,0 +1,35 @@
+name: Tanpheus
+
+on:
+  push:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run check
+
+  run:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node scripts/run-tanpheus.mjs
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          TANPHEUS_STATE_URL: ${{ secrets.TANPHEUS_STATE_URL }}
+          TANPHEUS_STATE_TOKEN: ${{ secrets.TANPHEUS_STATE_TOKEN }}

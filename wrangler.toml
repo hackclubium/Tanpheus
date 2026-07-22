@@ -1,0 +1,8 @@
+name = "tanpheus"
+main = "worker.js"
+compatibility_date = "2026-07-20"
+
+[[d1_databases]]
+binding = "TANPHEUS_DB"
+database_name = "tanpheus-state"
+database_id = "000b8bad-7eec-459a-aa1c-44a68459d105"
