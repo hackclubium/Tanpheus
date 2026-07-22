@@ -1,7 +1,7 @@
 import { pathToFileURL } from 'node:url';
 import { analyzeTanka } from './tanka.mjs';
 
-const tankaReaction = 'tanka';
+const tankaReaction = 'email';
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 

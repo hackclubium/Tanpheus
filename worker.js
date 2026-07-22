@@ -314,7 +314,7 @@ async function processTankaMessage(env, message) {
   const { analyzeTanka } = await loadTanka();
   const processedKey = `processed:${message.channel}:${message.ts}`;
   if (await dbGet(env, processedKey)) return { ok: false, reason: 'already_seen' };
-  if ((message.reactions ?? []).some((reaction) => reaction.name === 'tanka')) return { ok: false, reason: 'already_seen' };
+  if ((message.reactions ?? []).some((reaction) => reaction.name === 'email')) return { ok: false, reason: 'already_seen' };
 
   const analysis = analyzeTanka(message.text);
   if (!analysis.ok) return { ok: false, reason: 'not_tanka', analysis };
@@ -333,7 +333,7 @@ async function processTankaMessage(env, message) {
       unfurl_links: false,
       unfurl_media: false
     }),
-    slack(env, 'reactions.add', { channel: message.channel, timestamp: message.ts, name: 'tanka' })
+    slack(env, 'reactions.add', { channel: message.channel, timestamp: message.ts, name: 'email' })
   ]);
   await markTankaed(env, message.thread_ts || message.ts).catch(() => {});
   await dbPut(env, processedKey, '1', 12 * 60 * 60).catch(() => {});

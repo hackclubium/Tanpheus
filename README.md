@@ -9,7 +9,7 @@ original tanka
 by <@USERID>
 ```
 
-Then it reacts with `:tanka:`.
+Then it reacts with `:email:`.
 
 ## Shape
 
